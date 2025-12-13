@@ -10,18 +10,18 @@
   },
   "dependencies": {
     "@libsql/client": "^0.15.15",
-    "next": "16.0.8",
-    "react": "19.2.1",
-    "react-dom": "19.2.1"
+    "next": "16.0.10",
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@tailwindcss/postcss": "^4.1.18",
+    "@types/node": "^24.10.3",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.0.8",
-    "tailwindcss": "^4",
+    "eslint": "^9.39.2",
+    "eslint-config-next": "16.0.10",
+    "tailwindcss": "^4.1.18",
     "typescript": "^5"
   },
   "packageManager": "pnpm@10.24.0"
