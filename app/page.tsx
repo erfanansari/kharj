@@ -12,6 +12,7 @@ export default function Home() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [editingExpense, setEditingExpense] = useState<Expense | undefined>(undefined);
 
   const fetchExpenses = async () => {
     setIsLoading(true);
@@ -32,6 +33,17 @@ export default function Home() {
 
   const handleExpenseChange = () => {
     setRefreshTrigger(prev => prev + 1);
+    setEditingExpense(undefined);
+  };
+
+  const handleEdit = (expense: Expense) => {
+    setEditingExpense(expense);
+    // Scroll to the form
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleCancelEdit = () => {
+    setEditingExpense(undefined);
   };
 
   return (
@@ -58,7 +70,11 @@ export default function Home() {
 
         {/* Add New Expense Form */}
         <div className="mt-6">
-          <ExpenseForm onExpenseAdded={handleExpenseChange} />
+          <ExpenseForm
+            onExpenseAdded={handleExpenseChange}
+            editingExpense={editingExpense}
+            onCancelEdit={handleCancelEdit}
+          />
         </div>
 
         {/* Charts */}
@@ -70,7 +86,11 @@ export default function Home() {
 
         {/* Expense Table */}
         <div className="mt-6">
-          <ExpenseList refreshTrigger={refreshTrigger} onDelete={handleExpenseChange} />
+          <ExpenseList
+            refreshTrigger={refreshTrigger}
+            onDelete={handleExpenseChange}
+            onEdit={handleEdit}
+          />
         </div>
       </main>
     </div>
