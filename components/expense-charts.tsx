@@ -59,7 +59,7 @@ export function ExpenseCharts({ expenses }: ExpenseChartsProps) {
   categoryTotals.sort((a, b) => b.value - a.value);
 
   // Calculate daily totals for area chart - sum both currencies separately
-  const dailyTotals = expenses.reduce((acc, exp) => {
+  const dailyExpenses = expenses.reduce((acc, exp) => {
     const existing = acc.find(item => item.date === exp.date);
     if (existing) {
       existing.amount += exp.price_toman;
@@ -70,7 +70,30 @@ export function ExpenseCharts({ expenses }: ExpenseChartsProps) {
     return acc;
   }, [] as Array<{ date: string; amount: number; usdValue: number }>);
 
-  dailyTotals.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  // Fill in missing dates with zero values for complete timeline
+  const dailyTotals: Array<{ date: string; amount: number; usdValue: number }> = [];
+
+  if (dailyExpenses.length > 0) {
+    dailyExpenses.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+    const firstDate = new Date(dailyExpenses[0].date);
+    const lastDate = new Date(dailyExpenses[dailyExpenses.length - 1].date);
+
+    // Generate all dates from first to last
+    const currentDate = new Date(firstDate);
+    while (currentDate <= lastDate) {
+      const dateStr = currentDate.toISOString().split('T')[0];
+      const existing = dailyExpenses.find(item => item.date === dateStr);
+
+      dailyTotals.push({
+        date: dateStr,
+        amount: existing ? existing.amount : 0,
+        usdValue: existing ? existing.usdValue : 0,
+      });
+
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+  }
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
