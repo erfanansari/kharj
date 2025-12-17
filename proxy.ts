@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   // Only enable auth in production
   // if (process.env.NODE_ENV !== 'production') {
   //   return NextResponse.next();
