@@ -1,17 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Vazirmatn } from "next/font/google";
+import { Geist, Vazirmatn } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
   display: 'swap',
   variable: "--font-geist-sans",
-  subsets: ["latin"],
-  weight: ['300', '400', '500', '600', '700'],
-});
-
-const geistMono = Geist_Mono({
-  display: 'swap',
-  variable: "--font-geist-mono",
   subsets: ["latin"],
   weight: ['300', '400', '500', '600', '700'],
 });
@@ -36,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${persianFont.variable} antialiased`}
+        className={`${geistSans.variable} ${persianFont.variable} antialiased`}
       >
         {children}
       </body>
